@@ -1,17 +1,25 @@
-import Layout from '@components/Layout/Layout'
-import ActivityIndicator from '@components/UI/ActivityIndicator';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useActions } from "@hooks/useActions";
+import { useSelector } from "react-redux";
+import Layout from "@components/Layout/Layout";
+import ActivityIndicator from "@components/UI/ActivityIndicator";
+import BookGrid from "@components/books/BookGrid";
 
 export default function Home() {
-  const { isLoading } = useSelector(state => state.status);
+  const { isLoading } = useSelector((state) => state.status);
+  const { getBooks } = useActions();
+  useEffect(() => {
+    getBooks();
+  }, []);
 
   if (isLoading) {
-    return <ActivityIndicator type="bounce" color="salmon" size={25}/>
+    return <ActivityIndicator type="bounce" color="salmon" size={25} />;
   }
   return (
     <Layout>
       <h1>Index Page</h1>
-      <p>{ isLoading.toString() }</p>
+      <BookGrid />
+      <p>{isLoading.toString()}</p>
     </Layout>
-  )
+  );
 }
