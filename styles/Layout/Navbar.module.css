@@ -1,0 +1,37 @@
+.navbar {
+  display: flex;
+  height: 60px;
+  padding: 1rem;
+  box-shadow: 0 0 4px #ccc;
+  align-items: center;
+}
+
+.navContainer {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbarBrand {
+  font-size: 24px;
+  color: salmon;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+}
+
+.navItem {
+  padding: 1rem;
+}
+
+.navItem a {
+  color: #555;
+}
+
+.navItem a:hover, .navItem a.active {
+  color: black;
+}
