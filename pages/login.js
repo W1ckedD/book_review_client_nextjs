@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Layout from "@components/Layout/Layout";
 import styles from "@styles/Login.module.css";
+import { useActions } from '@hooks/useActions';
 
 export default function Login() {
+  const { login } = useActions();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,11 +20,15 @@ export default function Login() {
         break;
     }
   };
+  const handleSubmit = e => {
+    e.preventDefault();
+    login({ username, password });
+  }
   return (
     <Layout title="Login">
       <div className={styles.center}>
         <h1>Login</h1>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label>Username</label>
             <input
