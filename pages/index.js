@@ -7,9 +7,10 @@ import BookGrid from "@components/books/BookGrid";
 
 export default function Home() {
   const { isLoading } = useSelector((state) => state.status);
-  const { getBooks } = useActions();
+  const { getBooks, getUser } = useActions();
   useEffect(() => {
     getBooks();
+    getUser();
   }, []);
 
   if (isLoading) {
