@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@components/Layout/Layout";
 import styles from "@styles/Login.module.css";
-import { useActions } from '@hooks/useActions';
+import { useSelector } from "react-redux";
+import { useActions } from "@hooks/useActions";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { login } = useActions();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/dashboard");
+    }
+  }, [router.pathname]);
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -20,10 +30,10 @@ export default function Login() {
         break;
     }
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     login({ username, password });
-  }
+  };
   return (
     <Layout title="Login">
       <div className={styles.center}>
@@ -49,7 +59,9 @@ export default function Login() {
               value={password}
             />
           </div>
-          <button type="submit" className={styles.btnPrimary}>Login</button>
+          <button type="submit" className={styles.btnPrimary}>
+            Login
+          </button>
         </form>
       </div>
     </Layout>

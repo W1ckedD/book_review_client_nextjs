@@ -1,4 +1,9 @@
-import { LOGOUT, LOGIN } from "@store/action-types";
+import {
+  LOGOUT,
+  LOGIN,
+  LOADING_TRUE,
+  LOADING_FALSE,
+} from "@store/action-types";
 import { API_URL } from "@config/index";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -16,6 +21,7 @@ export const login =
           .post("/api/login/", { token })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err));
+        Router.push("/dashboard");
         dispatch({
           type: LOGIN,
           payload: { user: res.data.user, token: res.data.token },
@@ -31,8 +37,8 @@ export const logout = () => (dispatch) => {
   axios
     .post("/api/logout/")
     .then((res) => {
-      dispatch({ type: LOGOUT });
       Router.push("/");
+      dispatch({ type: LOGOUT });
     })
     .catch((err) => {
       console.log(err);
@@ -55,10 +61,12 @@ export const getUser = () => (dispatch) => {
           .then((res) => {
             const user = res.data;
             if (user) {
+              dispatch({ type: LOADING_FALSE });
               dispatch({ type: LOGIN, payload: { token, user } });
             } else {
-              dispatch({ type: LOGOUT });
               Router.push("/");
+              dispatch({ type: LOGOUT });
+              dispatch({ type: LOADING_FALSE });
             }
           })
           .catch((err) => {
@@ -66,8 +74,9 @@ export const getUser = () => (dispatch) => {
             toast.error(err.message);
           });
       } else {
-        dispatch({ type: LOGOUT });
         Router.push("/");
+        dispatch({ type: LOADING_FALSE });
+        dispatch({ type: LOGOUT });
       }
     })
     .catch((err) => {

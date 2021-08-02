@@ -18,9 +18,7 @@ export default function Home() {
   }
   return (
     <Layout>
-      <h1>Index Page</h1>
       <BookGrid />
-      <p>{isLoading.toString()}</p>
     </Layout>
   );
 }

@@ -51,15 +51,17 @@ export default function Navbar() {
               </Link>
             </li>
             <li className={styles.navItem}>
-              <a
-                className={pathname === "/logout" ? styles.active : ""}
-                onClick={(e) => {
-                  e.preventDefault();
-                  logout();
-                }}
-              >
-                Logout
-              </a>
+              <Link href="#">
+                <a
+                  className={pathname === "/logout" ? styles.active : ""}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logout();
+                  }}
+                >
+                  Logout
+                </a>
+              </Link>
             </li>
           </ul>
         )}
