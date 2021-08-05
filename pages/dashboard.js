@@ -3,9 +3,9 @@ import ActivityIndicator from "@components/UI/ActivityIndicator";
 import { useSelector } from "react-redux";
 
 export default function Dashboard() {
-  const { isLoading } = useSelector((state) => state.status);
+
   const { user } = useSelector((state) => state.auth);
-  if (isLoading || !user) {
+  if ( !user) {
     return <ActivityIndicator type="bounce" color="salmon" size={25} />;
   }
   console.log(user);

@@ -1,8 +1,6 @@
 import {
   LOGOUT,
-  LOGIN,
-  LOADING_TRUE,
-  LOADING_FALSE,
+  LOGIN
 } from "@store/action-types";
 import { API_URL } from "@config/index";
 import axios from "axios";
@@ -61,12 +59,10 @@ export const getUser = () => (dispatch) => {
           .then((res) => {
             const user = res.data;
             if (user) {
-              dispatch({ type: LOADING_FALSE });
               dispatch({ type: LOGIN, payload: { token, user } });
             } else {
               Router.push("/");
               dispatch({ type: LOGOUT });
-              dispatch({ type: LOADING_FALSE });
             }
           })
           .catch((err) => {
@@ -75,7 +71,6 @@ export const getUser = () => (dispatch) => {
           });
       } else {
         Router.push("/");
-        dispatch({ type: LOADING_FALSE });
         dispatch({ type: LOGOUT });
       }
     })

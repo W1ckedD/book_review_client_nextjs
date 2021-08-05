@@ -6,16 +6,14 @@ import ActivityIndicator from "@components/UI/ActivityIndicator";
 import BookGrid from "@components/books/BookGrid";
 
 export default function Home() {
-  const { isLoading } = useSelector((state) => state.status);
+
   const { getBooks, getUser } = useActions();
   useEffect(() => {
     getBooks();
     getUser();
   }, []);
 
-  if (isLoading) {
-    return <ActivityIndicator type="bounce" color="salmon" size={25} />;
-  }
+  
   return (
     <Layout>
       <BookGrid />
